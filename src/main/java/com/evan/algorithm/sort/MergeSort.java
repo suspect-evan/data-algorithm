@@ -1,6 +1,7 @@
 package com.evan.algorithm.sort;
 
 import com.evan.algorithm.utils.ArrayUtils;
+import org.junit.Test;
 
 import java.util.Arrays;
 
@@ -22,7 +23,8 @@ import java.util.Arrays;
  */
 public class MergeSort {
 
-    public static void main(String[] args) {
+    @Test
+    public void testMergeSorting() {
         int[] arr = ArrayUtils.GenerateRandomIntArray(12, 50);
         System.out.println(Arrays.toString(mergeSortWithRecursion(arr)));
         int[] arr1 = ArrayUtils.GenerateRandomIntArray(12, 50);
