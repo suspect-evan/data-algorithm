@@ -8,7 +8,9 @@ import java.util.Arrays;
  * @author EvanYu
  * @date 2023/5/28
  * @description 算法：快速排序
- * 复杂度：O(nLogN)
+ * 时间复杂度：O(nLogN)
+ * 空间复杂度：O(logN)
+ * 不稳定：因为pivot的选择不稳定
  * 解决案例：适合统计或者计算所有比某个数大或者小的时候
  * 场景：小和计算、求逆序对
  * <p>
