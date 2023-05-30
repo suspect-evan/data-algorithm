@@ -23,7 +23,8 @@ public class MergeSort {
     public static void main(String[] args) {
         int[] arr = ArrayUtils.GenerateRandomIntArray(12, 50);
         System.out.println(Arrays.toString(mergeSortWithRecursion(arr)));
-        System.out.println(Arrays.toString(mergeSort(arr)));
+        int[] arr1 = ArrayUtils.GenerateRandomIntArray(12, 50);
+        System.out.println(Arrays.toString(mergeSort(arr1)));
     }
 
     /**
@@ -34,7 +35,7 @@ public class MergeSort {
      */
     private static int[] mergeSortWithRecursion(int[] arr) {
 
-        if (arr.length <= 1) {
+        if (null == arr || arr.length <= 1) {
             return arr;
         }
 
@@ -52,7 +53,7 @@ public class MergeSort {
      */
     private static int[] mergeSort(int[] arr) {
 
-        if (arr.length <= 1) {
+        if (null == arr || arr.length <= 1) {
             return arr;
         }
         int len = arr.length;
