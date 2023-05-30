@@ -22,9 +22,7 @@ public class QuickSort {
         System.out.println(Arrays.toString(quickSort(arr)));
 
         int[] arr1 = ArrayUtils.GenerateRandomIntArray(12, 50);
-        quicksortWithSwap(arr1);
-        System.out.println(Arrays.toString(arr1));
-
+        System.out.println(Arrays.toString(quickSort2(arr1)));
     }
 
 
@@ -41,6 +39,8 @@ public class QuickSort {
 
     /**
      * make arr ordered from index l to index r
+     *
+     * 拆东墙补西墙
      *
      * @param arr
      * @param l
@@ -69,42 +69,58 @@ public class QuickSort {
         }
     }
 
-    public static void quicksortWithSwap(int n[]) {
-        sort(n, 0, n.length - 1);
-    }
-
-    public static void sort(int n[], int l, int r) {
-        if (l < r) {
-            // 一趟快排，并返回交换后基数的下标
-            int index = partition(n, l, r);
-            // 递归排序基数左边的数组
-            sort(n, l, index - 1);
-            // 递归排序基数右边的数组
-            sort(n, index + 1, r);
+    private static int[] quickSort2(int[] arr) {
+        if (null == arr || arr.length <= 1) {
+            return arr;
         }
 
+        processSort2(arr, 0, arr.length - 1);
+        return arr;
     }
 
-    public static int partition(int n[], int l, int r) {
-        // p为基数，即待排序数组的第一个数
-        int p = n[l];
+    private static void processSort2(int[] arr, int l, int r) {
+        if (l >= r) {
+            return;
+        }
+        // make a random pivot
+        swap(arr, l + (int) Math.random() * (r - l + 1), r);
+        int[] equalArea = partition(arr, l, r);
+        processSort2(arr, l, equalArea[0] - 1);
+        processSort2(arr, equalArea[1] + 1, r);
+    }
+
+    /**
+     * tear the arr apart to three partition : less equal more
+     *
+     * @param arr
+     * @param l
+     * @param r
+     * @return equal partition
+     */
+    private static int[] partition(int[] arr, int l, int r) {
+        if (l > r) {
+            return new int[]{-1, -1};
+        }
+
+        if (l == r) {
+            return new int[]{l, r};
+        }
+        int lp = l - 1;
+        int rp = r;
         int i = l;
-        int j = r;
-        while (i < j) {
-            // 从右往左找第一个小于基数的数
-            while (n[j] >= p && i < j) {
-                j--;
-            }
-            // 从左往右找第一个大于基数的数
-            while (n[i] <= p && i < j) {
+        // pivot
+        int pivot = arr[r];
+        while (i < rp) {
+            if (arr[i] == pivot) {
                 i++;
+            }else if (arr[i] < pivot) {
+                swap(arr, i++, ++lp);
+            }else if (arr[i] > pivot) {
+                swap(arr, i, --rp);
             }
-            // 找到后交换两个数
-            swap(n, i, j);
         }
-        // 使划分好的数分布在基数两侧
-        swap(n, l, i);
-        return i;
+        swap(arr, rp, r);
+        return new int[]{lp + 1, rp};
     }
 
     private static void swap(int n[], int i, int j) {
