@@ -17,6 +17,10 @@ import java.util.Arrays;
  * <p>
  * 例如 2 4 3 1 小和为每个数比它小的数累计 4的小和为1+2+3=6 数组小和为所有小和的累加 1+1+1+2+2+3=10
  * 可以在merge的过程中，每次左边比较较小的数一定会产生右边剩余数量的小和，比如 2，4 一定会产生1个属于4下 2的小和
+ *
+ *
+ * 双端快排 {@linkplain java.util.Arrays}
+ * https://link.zhihu.com/?target=https%3A//codeblab.com/wp-content/uploads/2009/09/DualPivotQuicksort.pdf
  */
 public class QuickSort {
 

@@ -6,9 +6,12 @@ import org.junit.Test;
  * @author EvanYu
  * @date 2023/5/28
  * @description 链表反转
+ *
+ * 1.头插法
+ * 2.迭代
+ * 3.栈push pop 需要额外的空间
  */
 public class ReverseLinkList {
-
 
     @Test
     public void testLinkReverse() {
@@ -42,16 +45,21 @@ public class ReverseLinkList {
         d.next = e;
         e.next = f;
 
-
-
         System.out.println(eraseNodeInList(a,3));
     }
 
+    /**
+     * erase given node in list
+     * @param head
+     * @param val
+     * @return
+     */
     private static LinkedNode eraseNodeInList(LinkedNode head,int val){
         if(head == null || head.next == null){
             return head;
         }
 
+        // clear head should be deleted
         LinkedNode newHead = head;
         while (newHead.val == val){
             newHead = newHead.next;
