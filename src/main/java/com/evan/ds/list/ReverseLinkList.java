@@ -1,4 +1,4 @@
-package com.evan.data_structure.list;
+package com.evan.ds.list;
 
 import org.junit.Test;
 

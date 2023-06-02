@@ -1,4 +1,4 @@
-package com.evan.data_structure.queue;
+package com.evan.ds.queue;
 
 import org.junit.Test;
 
