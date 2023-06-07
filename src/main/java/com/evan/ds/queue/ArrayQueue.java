@@ -73,4 +73,5 @@ public class ArrayQueue {
             System.out.println(queue.pop());
         }
     }
+
 }

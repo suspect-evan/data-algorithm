@@ -37,7 +37,7 @@ public class MergeSort {
      * @param arr
      * @return
      */
-    private static int[] mergeSortWithRecursion(int[] arr) {
+    public static int[] mergeSortWithRecursion(int[] arr) {
 
         if (null == arr || arr.length <= 1) {
             return arr;
@@ -55,7 +55,7 @@ public class MergeSort {
      * @param arr
      * @return
      */
-    private static int[] mergeSort(int[] arr) {
+    public static int[] mergeSort(int[] arr) {
 
         if (null == arr || arr.length <= 1) {
             return arr;
@@ -93,7 +93,7 @@ public class MergeSort {
      * @param l
      * @param r
      */
-    private static void processSort(int[] arr, int l, int r) {
+    public static void processSort(int[] arr, int l, int r) {
         if (l == r) {
             return;
         }
@@ -115,7 +115,7 @@ public class MergeSort {
      * @param r
      * @return
      */
-    private static void merge(int[] arr, int l, int mid, int r) {
+    public static void merge(int[] arr, int l, int mid, int r) {
         int[] tmpArr = new int[r - l + 1];
         int i = 0;
         int pl = l;
