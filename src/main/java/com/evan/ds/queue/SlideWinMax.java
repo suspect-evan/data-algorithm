@@ -9,6 +9,8 @@ import java.util.*;
  * @date 2023/6/3
  * @description
  * 滑动窗口生成所有窗口的最大值
+ *
+ * 使用队列记录窗口范围内的从大到小排列的值，当出现大值时把队列尾部的数弹出，直到没有比当前值更小的数
  */
 public class SlideWinMax {
 
@@ -18,12 +20,13 @@ public class SlideWinMax {
         System.out.println(Arrays.toString(getWinMax(arr,3)));
     }
 
+
     public static int[] getWinMax(int[] arr,int w) {
         if(arr == null || w<1||arr.length<w){
             return null;
         }
         //结果为n-w+1长度的数组
-        LinkedList<Integer> qMax = new LinkedList<Integer>();
+        LinkedList<Integer> qMax = new LinkedList<>();
         int[] result = new int[arr.length - w +1];
         int index = 0;
         for(int i=0;i<arr.length;i++){
