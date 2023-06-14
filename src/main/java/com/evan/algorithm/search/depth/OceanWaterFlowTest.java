@@ -1,6 +1,5 @@
 package com.evan.algorithm.search.depth;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
@@ -8,6 +7,7 @@ import org.openjdk.jmh.runner.*;
 import org.openjdk.jmh.runner.options.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
  * Output: [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]
  */
 @State(Scope.Thread)
-public class OceanWaterFlow {
+public class OceanWaterFlowTest {
 
     int[][] heights = {
             {1, 2, 2, 3, 5},
@@ -42,12 +42,21 @@ public class OceanWaterFlow {
             {6, 7, 1, 4, 5},
             {5, 1, 1, 2, 4}
     };
+    List<List<Integer>> output = Arrays.asList(
+            Arrays.asList(0, 4),
+            Arrays.asList(1, 3),
+            Arrays.asList(1, 4),
+            Arrays.asList(2, 2),
+            Arrays.asList(3, 0),
+            Arrays.asList(3, 1),
+            Arrays.asList(4, 0)
+    );
     private static final int[] direction = {-1, 0, 1, 0, -1};
 
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
         int height = heights.length;
         int width = heights[0].length;
-        if(width == 0){
+        if (width == 0) {
             return new ArrayList<>();
         }
 
@@ -104,8 +113,8 @@ public class OceanWaterFlow {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    @Measurement(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Warmup(iterations = 1, time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(iterations = 3, time = 1)
+    @Warmup(iterations = 1, time = 1)
     @Threads(1)
     @Fork(1)
     public void benchmarkOceanWaterFlow() {
@@ -114,7 +123,7 @@ public class OceanWaterFlow {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(OceanWaterFlow.class.getSimpleName())
+                .include(OceanWaterFlowTest.class.getSimpleName())
                 // 预热次数
                 .warmupIterations(1)
                 // 预热时间
