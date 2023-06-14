@@ -1,5 +1,6 @@
 package com.evan.algorithm.sort;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
@@ -18,11 +19,12 @@ import java.util.concurrent.TimeUnit;
  * 输入: nums = [1,1,1,2,2,3], k = 2
  * 输出: [1,2]
  */
+@Slf4j
 public class TopKFrequent {
     @Test
     public void testTopKFrequent() {
         int[] nums = {1,1,1,2,2,3,2,4,2,6,5,5,5,5,5};
-        System.out.println(Arrays.toString(topKFrequent(nums,2)));
+        log.debug("{}", Arrays.toString(topKFrequent(nums,2)));
     }
 
     @Benchmark
@@ -33,7 +35,8 @@ public class TopKFrequent {
     @Threads(1)
     @Fork(1)
     public void benchmarkTopKFrequent() {
-
+        int[] nums = {1,1,1,2,2,3,2,4,2,6,5,5,5,5,5};
+        topKFrequent(nums,3);
     }
 
     public static void main(String[] args) throws RunnerException {

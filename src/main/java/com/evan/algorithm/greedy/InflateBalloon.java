@@ -1,5 +1,6 @@
 package com.evan.algorithm.greedy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 
@@ -24,6 +25,7 @@ import java.util.stream.Stream;
  * -在x = 11处发射箭，击破气球[10,16]和[7,12]。
  */
 @State(value = Scope.Thread)
+@Slf4j
 public class InflateBalloon {
 
     int[][] area = {
@@ -34,7 +36,7 @@ public class InflateBalloon {
     };
     @Test
     public void testAssign() {
-        System.out.println(findMinArrowShots(area));
+        log.debug("min area : {}",findMinArrowShots(area));
     }
 
     @Benchmark

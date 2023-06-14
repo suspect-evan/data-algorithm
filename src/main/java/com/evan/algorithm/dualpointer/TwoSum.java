@@ -1,5 +1,6 @@
 package com.evan.algorithm.dualpointer;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
  * Input: numbers = [2,7,11,15], target = 9
  * Output: [0,1]
  */
+@Slf4j
 @State(Scope.Thread)
 public class TwoSum {
 
@@ -25,7 +27,7 @@ public class TwoSum {
 
     @Test
     public void testTwoSum() {
-        System.out.println(Arrays.toString(twoSum(nums, 34)));
+        log.debug("{}", Arrays.toString(twoSum(nums, 34)));
     }
 
     @Benchmark
@@ -50,7 +52,8 @@ public class TwoSum {
         if (nums.length == 2) {
             return new int[]{0, 1};
         }
-        int l = 0, r = nums.length - 1;
+        int l = 0;
+        int r = nums.length - 1;
 
         while (l < r){
             if(nums[l] + nums[r] == target){

@@ -1,6 +1,7 @@
 package com.evan.algorithm.sort;
 
 import com.evan.algorithm.utils.ArrayUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
@@ -16,29 +17,27 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author EvanYu
  * @date 2023/5/28
- * @description
- *
- * 算法：归并排序
+ * @description 算法：归并排序
  * 时间复杂度：O(nLogN)
  * 空间复杂度：O(N)
  * 算法稳定：因为不会改变数组
  * 解决案例：适合统计或者计算所有比某个数大或者小的时候
  * 场景：小和计算、求逆序对
- *
+ * <p>
  * 例如 2 4 3 1 小和为每个数比它小的数累计 4的小和为1+2+3=6 数组小和为所有小和的累加 1+1+1+2+2+3=10
  * 可以在merge的过程中，每次左边比较较小的数一定会产生右边剩余数量的小和，比如 2，4 一定会产生1个属于4下 2的小和
- *
  */
+@Slf4j
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-@Measurement(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 3, time = 1)
 public class MergeSort {
     int[] arr;
 
     @Setup(value = Level.Invocation)
     public void prepare() {
-        arr = ArrayUtils.GenerateRandomIntArray(20, 100);
+        arr = ArrayUtils.generateRandomIntArray(20, 100);
     }
 
     @Benchmark
@@ -72,10 +71,12 @@ public class MergeSort {
 
     @Test
     public void testMergeSorting() {
-        int[] arr = ArrayUtils.GenerateRandomIntArray(12, 50);
-        System.out.println(Arrays.toString(mergeSortWithRecursion(arr)));
-        int[] arr1 = ArrayUtils.GenerateRandomIntArray(12, 50);
-        System.out.println(Arrays.toString(mergeSort(arr1)));
+        int[] randomArr = ArrayUtils.generateRandomIntArray(12, 50);
+        log.debug("raw arr : {}", Arrays.toString(randomArr));
+        log.debug("sort result : {}", Arrays.toString(mergeSortWithRecursion(randomArr)));
+        randomArr = ArrayUtils.generateRandomIntArray(12, 50);
+        log.debug("raw arr : {}", Arrays.toString(randomArr));
+        log.debug("sort result : {}", Arrays.toString(mergeSort(randomArr)));
     }
 
     /**

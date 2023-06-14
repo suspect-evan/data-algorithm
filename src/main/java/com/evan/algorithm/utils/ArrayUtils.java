@@ -1,6 +1,5 @@
 package com.evan.algorithm.utils;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -9,22 +8,23 @@ import java.util.Random;
  * @description
  */
 public class ArrayUtils {
+    static final Random random = new Random();
 
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(GenerateRandomIntArray(15,100)));
+    private ArrayUtils() {
+        throw new IllegalStateException("Utility class");
     }
 
     /**
      * generate random arr
+     *
      * @param num
      * @param bound
      * @return
      */
-    public static int[] GenerateRandomIntArray(int num, int bound) {
+    public static int[] generateRandomIntArray(int num, int bound) {
         if (num == 0) {
-            return null;
+            return new int[]{};
         }
-        Random random = new Random();
         int[] arr = new int[num];
         for (int i = 0; i < num; i++) {
             arr[i] = random.nextInt(bound);

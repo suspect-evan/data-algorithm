@@ -1,5 +1,6 @@
 package com.evan.ds.list;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
@@ -11,6 +12,7 @@ import org.junit.Test;
  * 2.迭代
  * 3.栈push pop 需要额外的空间
  */
+@Slf4j
 public class ReverseLinkList {
 
     @Test
@@ -26,9 +28,10 @@ public class ReverseLinkList {
         c.next = d;
         d.pre = c;
 
-        System.out.println(a);
-        System.out.println(reverseRecursive(a));
-        System.out.println(reverse(d));
+        log.debug("{}",a);
+        log.debug("{}",reverseRecursive(a));
+        log.debug("{}",reverse(d));
+        log.debug("{}",d.pre);
     }
 
     @Test
@@ -45,7 +48,7 @@ public class ReverseLinkList {
         d.next = e;
         e.next = f;
 
-        System.out.println(eraseNodeInList(a,3));
+        log.debug("{}",eraseNodeInList(a,3));
     }
 
     /**
@@ -129,10 +132,11 @@ public class ReverseLinkList {
             String link = String.valueOf(this.val);
             LinkedNode current = this;
             while (null != current.next) {
-                link = link + "-" + current.next.val;
+                link = new StringBuilder().append(link).append("-").append(current.next.val).toString();
                 current = current.next;
             }
             return link;
         }
+
     }
 }

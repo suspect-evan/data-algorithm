@@ -1,5 +1,6 @@
 package com.evan.ds.queue;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.*;
@@ -12,18 +13,17 @@ import java.util.*;
  *
  * 使用队列记录窗口范围内的从大到小排列的值，当出现大值时把队列尾部的数弹出，直到没有比当前值更小的数
  */
+@Slf4j
 public class SlideWinMax {
 
     @Test
-    public void TestSlideWinMax(){
+    public void testSlideWinMax(){
         int[] arr = new int[]{4,3,8,4,1,5,6,3};
-        System.out.println(Arrays.toString(getWinMax(arr,3)));
+        log.debug("{}", Arrays.toString(getWinMax(arr,3)));
     }
-
-
     public static int[] getWinMax(int[] arr,int w) {
         if(arr == null || w<1||arr.length<w){
-            return null;
+            return new int[0];
         }
         //结果为n-w+1长度的数组
         LinkedList<Integer> qMax = new LinkedList<>();

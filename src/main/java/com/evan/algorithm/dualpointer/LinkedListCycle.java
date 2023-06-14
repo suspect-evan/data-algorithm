@@ -1,9 +1,9 @@
 package com.evan.algorithm.dualpointer;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,11 +24,12 @@ import java.util.concurrent.TimeUnit;
  * 由此可得 新指针走 a 时，慢指针正好走到环的入口
  */
 
+@Slf4j
 public class LinkedListCycle {
 
     @Test
     public void testCycle() {
-        System.out.println(listCycle(buildRing()).val);
+        log.debug("cycle node is : {} ",listCycle(buildRing()).val);
     }
 
     @Benchmark
@@ -50,7 +51,8 @@ public class LinkedListCycle {
      * @return
      */
     public ListNode listCycle(ListNode head) {
-        ListNode slow = head, fast = head;
+        ListNode slow = head;
+        ListNode fast = head;
 
         // has ringBuffer
         do {

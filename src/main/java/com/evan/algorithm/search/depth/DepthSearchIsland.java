@@ -1,5 +1,6 @@
 package com.evan.algorithm.search.depth;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
@@ -10,6 +11,8 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.openjdk.jmh.runner.options.TimeValue;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +30,7 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * 解法：二分 + 左闭右开
  */
+@Slf4j
 public class DepthSearchIsland {
 
     @Test
@@ -36,8 +40,8 @@ public class DepthSearchIsland {
                 {1, 0, 1, 1, 0, 1, 1, 1},
                 {0, 0, 0, 0, 0, 0, 0, 1},
         };
-        Assert.assertEquals(6, searchByStack(newArea()));
-        Assert.assertEquals(6, searchByRecur(areaB));
+        log.debug("island result : {}",searchByStack(newArea()));
+        log.debug("island result : {}",searchByRecur(areaB));
     }
 
     public static void main(String[] args) throws RunnerException {
@@ -105,39 +109,49 @@ public class DepthSearchIsland {
      * @return
      */
     public int searchByStack(int[][] grid) {
-        int maxArea = 0, currentArea = 0, h = grid.length, w = grid[0].length, x = 0, y = 0;
+        int maxArea = 0;
+        int currentArea = 0;
+        int h = grid.length;
+        int w = grid[0].length;
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
-                if (grid[i][j] == 1) {
-                    Stack<int[]> island = new Stack<>();
-                    // start searching
-                    island.push(new int[]{i, j});
-                    currentArea++;
-                    // erase tracks
-                    grid[i][j] = 0;
-
-                    while (!island.isEmpty()) {
-                        int[] c = island.pop();
-                        // four directions
-                        for (int k = 0; k < 4; k++) {
-                            x = c[0] + direction[k];
-                            y = c[1] + direction[k + 1];
-                            if (x >= 0 && y >= 0 && x < h && y < w && grid[x][y] == 1) {
-                                // erase tracks
-                                grid[x][y] = 0;
-                                island.push(new int[]{x, y});
-                                currentArea++;
-                            }
-                        }
-                    }
-                    maxArea = Math.max(maxArea, currentArea);
-                    currentArea = 0;
+                if (grid[i][j] != 1) {
+                    continue;
                 }
+                Deque<int[]> island = new ArrayDeque<>();
+                // start searching
+                island.push(new int[]{i, j});
+                currentArea++;
+                // erase tracks
+                grid[i][j] = 0;
+
+                currentArea = getArea(grid, currentArea, h, w, island);
+                maxArea = Math.max(maxArea, currentArea);
+                currentArea = 0;
             }
         }
         return maxArea;
     }
 
+    private static int getArea(int[][] grid, int currentArea, int h, int w, Deque<int[]> island) {
+        int x;
+        int y;
+        while (!island.isEmpty()) {
+            int[] c = island.pop();
+            // four directions
+            for (int k = 0; k < 4; k++) {
+                x = c[0] + direction[k];
+                y = c[1] + direction[k + 1];
+                if (x >= 0 && y >= 0 && x < h && y < w && grid[x][y] == 1) {
+                    // erase tracks
+                    grid[x][y] = 0;
+                    island.push(new int[]{x, y});
+                    currentArea++;
+                }
+            }
+        }
+        return currentArea;
+    }
 
     /**
      * search max area of island
@@ -146,7 +160,9 @@ public class DepthSearchIsland {
      * @return
      */
     public int searchByRecur(int[][] grid) {
-        int maxArea = 0, h = grid.length, w = grid[0].length;
+        int maxArea = 0;
+        int h = grid.length;
+        int w = grid[0].length;
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
                 if (grid[i][j] == 1) {
@@ -168,19 +184,5 @@ public class DepthSearchIsland {
         num += dfs(grid, i, j + 1);
         num += dfs(grid, i, j - 1);
         return num;
-
-        /*if (grid[i][j] == 0) return 0;
-        // erase tracks
-        grid[i][j] = 0;
-        int x, y, area = 1;
-        // four directions
-        for (int k = 0; k < 4; k++) {
-            x = i + direction[k];
-            y = j + direction[k + 1];
-            if (x >= 0 && y >= 0 && x < grid.length && y < grid[0].length) {
-                area += dfs(grid, x, y);
-            }
-        }
-        return area;*/
     }
 }

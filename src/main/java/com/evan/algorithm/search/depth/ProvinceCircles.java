@@ -1,5 +1,6 @@
 package com.evan.algorithm.search.depth;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit;
  * 输入：isConnected = [[1,1,0],[1,1,0],[0,0,1]]
  * 输出：2
  */
+@Slf4j
 @State(Scope.Thread)
 public class ProvinceCircles {
 
@@ -83,8 +85,7 @@ public class ProvinceCircles {
 
     @Test
     public void testProvinceCircles() {
-
-        System.out.println(findCircleNum(area));
+       log.debug("circle number : {} ",findCircleNum(area));
     }
 
     @Benchmark

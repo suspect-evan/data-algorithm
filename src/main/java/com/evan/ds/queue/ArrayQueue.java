@@ -1,5 +1,6 @@
 package com.evan.ds.queue;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
@@ -7,6 +8,7 @@ import org.junit.Test;
  * @date 2023/5/31
  * @description 使用固定数组实现简单的队列
  */
+@Slf4j
 public class ArrayQueue {
 
 
@@ -26,7 +28,7 @@ public class ArrayQueue {
 
         public void push(int ele) {
             if (size >= limit) {
-                throw new RuntimeException("queue is full");
+                return;
             }
             size++;
             arr[pushIdx] = ele;
@@ -35,7 +37,7 @@ public class ArrayQueue {
 
         public int pop() {
             if (size <= 0) {
-                throw new RuntimeException("queue is empty");
+                return -1;
             }
             size--;
             int res = arr[popIdx];
@@ -57,6 +59,7 @@ public class ArrayQueue {
     }
 
 
+    private static final String POP_LOG = "pop : {}";
     @Test
     public void testQueue() {
         RingBufferQueue queue = new RingBufferQueue(3);
@@ -64,13 +67,13 @@ public class ArrayQueue {
         queue.push(2);
         queue.push(1);
 
-        System.out.println(queue.pop());
-        System.out.println(queue.pop());
+        log.debug(POP_LOG, queue.pop());
+        log.debug(POP_LOG, queue.pop());
         queue.push(4);
         queue.push(5);
 
-        while (!queue.isEmpty()){
-            System.out.println(queue.pop());
+        while (!queue.isEmpty()) {
+            log.debug(POP_LOG, queue.pop());
         }
     }
 

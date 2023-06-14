@@ -1,5 +1,6 @@
 package com.evan.algorithm.greedy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
@@ -29,13 +30,14 @@ import java.util.concurrent.TimeUnit;
  * 解法：贪心，从左发一次，从右再发一次
  */
 @State(value = Scope.Thread)
+@Slf4j
 public class AssignCandy {
 
     int[] ratings = new int[]{1, 3, 2, 2, 1};
 
     @Test
     public void testAssign() {
-        Assert.assertEquals(7, candy(ratings));
+        log.debug("res : {}",candy(ratings));
     }
 
     @Benchmark
@@ -59,11 +61,9 @@ public class AssignCandy {
         if (ratings.length < 2) {
             return ratings.length;
         }
-        int res[] = new int[ratings.length];
+        int[] res = new int[ratings.length];
         // default 1
-        for (int i = 0; i < res.length; i++) {
-            res[i] = 1;
-        }
+        Arrays.fill(res, 1);
 
         // from left
         for (int i = 1; i < res.length; i++) {

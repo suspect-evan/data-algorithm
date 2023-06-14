@@ -5,5 +5,5 @@ package com.evan.algorithm.search.width;
  * @date 2023/6/11
  * @description
  */
-public class Readme {
+public interface Readme {
 }

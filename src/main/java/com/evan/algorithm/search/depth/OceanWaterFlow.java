@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
  * Output: [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]
  */
 @State(Scope.Thread)
-public class OceanWaterFlowTest {
+public class OceanWaterFlow {
 
     int[][] heights = {
             {1, 2, 2, 3, 5},
@@ -123,7 +123,7 @@ public class OceanWaterFlowTest {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(OceanWaterFlowTest.class.getSimpleName())
+                .include(OceanWaterFlow.class.getSimpleName())
                 // 预热次数
                 .warmupIterations(1)
                 // 预热时间

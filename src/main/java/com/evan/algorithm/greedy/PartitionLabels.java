@@ -1,6 +1,6 @@
 package com.evan.algorithm.greedy;
 
-import org.junit.Assert;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 
@@ -27,6 +27,7 @@ import java.util.concurrent.TimeUnit;
  * 每个字母最多出现在一个片段中。
  * 像 "ababcbacadefegde", "hijhklij" 这样的划分是错误的，因为划分的片段数较少。
  */
+@Slf4j
 @State(value = Scope.Thread)
 public class PartitionLabels {
 
@@ -34,7 +35,7 @@ public class PartitionLabels {
 
     @Test
     public void testAssign() {
-        System.out.println(partitionLabels(s).toString());
+        log.debug("partition labels : {} ", partitionLabels(s).toString());
     }
 
     @Benchmark
@@ -67,7 +68,9 @@ public class PartitionLabels {
 
         List<Integer> res = new ArrayList<>();
         char[] chars = s.toCharArray();
-        int i = 0, l = 0, r = 0;
+        int i = 0;
+        int l = 0;
+        int r = 0;
         while (i < chars.length) {
             int last = s.lastIndexOf(chars[i]);
             if (last == i && i == r) {
@@ -89,8 +92,9 @@ public class PartitionLabels {
         for (int i = 0; i < length; i++) {
             maxPos[s.charAt(i) - 'a'] = i;
         }
-        List<Integer> partition = new ArrayList<Integer>();
-        int start = 0, end = 0;
+        List<Integer> partition = new ArrayList<>();
+        int start = 0;
+        int end = 0;
         for (int i = 0; i < length; i++) {
             end = Math.max(end, maxPos[s.charAt(i) - 'a']);
             if (i == end) {

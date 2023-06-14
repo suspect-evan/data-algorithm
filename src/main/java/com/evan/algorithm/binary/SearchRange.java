@@ -1,5 +1,6 @@
 package com.evan.algorithm.binary;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
@@ -24,9 +25,10 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * 输入：nums = [5,7,7,8,8,10], target = 8
  * 输出：[3,4]
- *
+ * <p>
  * 解法：二分 + 左闭右开
  */
+@Slf4j
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
@@ -68,10 +70,10 @@ public class SearchRange {
 
     @Test
     public void testSearch() {
-        System.out.println(searchHeadRecur(arr, 7));
-        System.out.println(searchTailRecur(arr, 7));
-        System.out.println(searchHead(arr, 0, arr.length - 1, 7));
-        System.out.println(searchTail(arr, 0, arr.length - 1, 7));
+        log.debug("{}", searchHeadRecur(arr, 7));
+        log.debug("{}", searchTailRecur(arr, 7));
+        log.debug("{}", searchHead(arr, 0, arr.length - 1, 7));
+        log.debug("{}", searchTail(arr, 0, arr.length - 1, 7));
     }
 
     public static int searchHead(int[] arr, int l, int r, int target) {
@@ -104,7 +106,9 @@ public class SearchRange {
 
 
     public static int searchHeadRecur(int[] arr, int target) {
-        int l = 0, r = arr.length - 1, mid = 0;
+        int l = 0;
+        int r = arr.length - 1;
+        int mid = 0;
 
         while (l < r) {
             mid = (l + r) / 2;
@@ -118,7 +122,9 @@ public class SearchRange {
     }
 
     public static int searchTailRecur(int[] arr, int target) {
-        int l = 0, r = arr.length - 1, mid = 0;
+        int l = 0;
+        int r = arr.length - 1;
+        int mid = 0;
 
         while (l < r) {
             mid = (l + r) / 2;

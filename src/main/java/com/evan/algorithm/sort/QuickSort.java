@@ -1,9 +1,11 @@
 package com.evan.algorithm.sort;
 
 import com.evan.algorithm.utils.ArrayUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * @author EvanYu
@@ -17,20 +19,23 @@ import java.util.Arrays;
  * <p>
  * 例如 2 4 3 1 小和为每个数比它小的数累计 4的小和为1+2+3=6 数组小和为所有小和的累加 1+1+1+2+2+3=10
  * 可以在merge的过程中，每次左边比较较小的数一定会产生右边剩余数量的小和，比如 2，4 一定会产生1个属于4下 2的小和
- *
- *
+ * <p>
+ * <p>
  * 双端快排 {@linkplain java.util.Arrays}
  * https://link.zhihu.com/?target=https%3A//codeblab.com/wp-content/uploads/2009/09/DualPivotQuicksort.pdf
  */
+@Slf4j
 public class QuickSort {
+
+    private static final Random random = new Random();
 
     @Test
     public void testQuickSorting() {
-        int[] arr = ArrayUtils.GenerateRandomIntArray(12, 50);
-        System.out.println(Arrays.toString(quickSort(arr)));
+        int[] arr = ArrayUtils.generateRandomIntArray(12, 50);
+        log.debug("sort result : {} ", Arrays.toString(quickSort(arr)));
 
-        int[] arr1 = ArrayUtils.GenerateRandomIntArray(12, 50);
-        System.out.println(Arrays.toString(quickSort2(arr1)));
+        int[] arr1 = ArrayUtils.generateRandomIntArray(12, 50);
+        log.debug("sort result : {} ", Arrays.toString(quickSort2(arr1)));
     }
 
 
@@ -47,7 +52,7 @@ public class QuickSort {
 
     /**
      * make arr ordered from index l to index r
-     *
+     * <p>
      * 拆东墙补西墙
      *
      * @param arr
@@ -91,7 +96,7 @@ public class QuickSort {
             return;
         }
         // make a random pivot
-        swap(arr, l + (int) Math.random() * (r - l + 1), r);
+        swap(arr, l + random.nextInt() * (r - l + 1), r);
         int[] equalArea = partition(arr, l, r);
         processSort2(arr, l, equalArea[0] - 1);
         processSort2(arr, equalArea[1] + 1, r);
@@ -121,9 +126,9 @@ public class QuickSort {
         while (i < rp) {
             if (arr[i] == pivot) {
                 i++;
-            }else if (arr[i] < pivot) {
+            } else if (arr[i] < pivot) {
                 swap(arr, i++, ++lp);
-            }else if (arr[i] > pivot) {
+            } else if (arr[i] > pivot) {
                 swap(arr, i, --rp);
             }
         }
@@ -131,7 +136,7 @@ public class QuickSort {
         return new int[]{lp + 1, rp};
     }
 
-    private static void swap(int n[], int i, int j) {
+    private static void swap(int[] n, int i, int j) {
         int temp = n[i];
         n[i] = n[j];
         n[j] = temp;

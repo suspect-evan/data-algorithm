@@ -1,9 +1,9 @@
 package com.evan.algorithm.dualpointer;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -17,13 +17,15 @@ import java.util.concurrent.TimeUnit;
  * 输出："BANC"
  * 解释：最小覆盖子串 "BANC" 包含来自字符串 t 的 'A'、'B' 和 'C'。
  */
+@Slf4j
 @State(Scope.Thread)
 public class ShortestSubString {
-    String s = "a", t = "b";
+    String s = "a";
+    String t = "b";
 
     @Test
     public void testSubString() {
-        System.out.println(minSubStr(s, t));
+        log.debug("{}", minSubStr(s, t));
     }
 
     @Benchmark
@@ -61,7 +63,8 @@ public class ShortestSubString {
 
         int l = 0;
         int cnt = 0;
-        int ml = 0, ms = sChars.length + 1;
+        int ml = 0;
+        int ms = sChars.length + 1;
         for (int r = 0; r < sChars.length; r++) {
             int c = sChars[r] - 0;
             if (subMap[c] == 1) {

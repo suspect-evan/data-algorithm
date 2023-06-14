@@ -1,14 +1,9 @@
 package com.evan.algorithm.binary;
 
 import com.evan.algorithm.utils.ArrayUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
-import org.openjdk.jmh.results.format.ResultFormatType;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
-import org.openjdk.jmh.runner.options.TimeValue;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -29,15 +24,16 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * 解法：二分 + 左闭右开
  */
+@Slf4j
 public class SearchRotate {
 
-    public static int[] arr = new int[]{7, 7, 9, 11, 14, 15, 17, 1, 3, 5, 6, 7};
+    private static final int[] array = new int[]{7, 7, 9, 11, 14, 15, 17, 1, 3, 5, 6, 7};
+    private static final Random random = new Random();
 
     private int[] getSortedRotateArr(int nums) {
-        int[] arr = ArrayUtils.GenerateRandomIntArray(nums, 100);
+        int[] arr = ArrayUtils.generateRandomIntArray(nums, 100);
         Arrays.sort(arr);
 
-        Random random = new Random();
         int pivot = random.nextInt(nums - 1);
         int[] copy = new int[nums];
         for (int i = 0; i < arr.length; i++) {
@@ -54,7 +50,7 @@ public class SearchRotate {
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @Measurement(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Warmup(iterations = 1,time = 1,timeUnit = TimeUnit.SECONDS)
+    @Warmup(iterations = 1, time = 1, timeUnit = TimeUnit.SECONDS)
     @Threads(1)
     @Fork(1)
     public void benchmarkSearch() {
@@ -63,8 +59,8 @@ public class SearchRotate {
 
     @Test
     public void testSearch() {
-        System.out.println(search(arr, 10));
-        System.out.println(Arrays.toString(getSortedRotateArr(10)));
+        log.debug("{}", search(array, 10));
+        log.debug("{}", Arrays.toString(getSortedRotateArr(10)));
     }
 
     /**
@@ -75,7 +71,9 @@ public class SearchRotate {
      * @return
      */
     public boolean search(int[] nums, int target) {
-        int l = 0, r = nums.length - 1, mid = (l + r) / 2;
+        int l = 0;
+        int r = nums.length - 1;
+        int mid = (l + r) / 2;
 
         while (l <= r) {
             if (nums[mid] == target) {
