@@ -40,8 +40,8 @@ public class DepthSearchIsland {
                 {1, 0, 1, 1, 0, 1, 1, 1},
                 {0, 0, 0, 0, 0, 0, 0, 1},
         };
-        log.debug("island result : {}",searchByStack(newArea()));
-        log.debug("island result : {}",searchByRecur(areaB));
+        log.debug("island result : {}", searchByStack(newArea()));
+        log.debug("island result : {}", searchByRecur(areaB));
     }
 
     public static void main(String[] args) throws RunnerException {
@@ -86,7 +86,7 @@ public class DepthSearchIsland {
     }
 
     private int[][] newArea() {
-        int[][] area = {
+        return new int[][]{
                 {0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
                 {0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -96,7 +96,6 @@ public class DepthSearchIsland {
                 {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}
         };
-        return area;
     }
 
     // above (-1,0) right (0,1) below (1,0) left (0,-1)
