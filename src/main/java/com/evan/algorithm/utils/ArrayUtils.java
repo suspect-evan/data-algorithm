@@ -31,4 +31,20 @@ public class ArrayUtils {
         }
         return arr;
     }
+
+    /**
+     * 交换
+     *
+     * @param nums
+     * @param i
+     * @param j
+     */
+    public static void swap(int[] nums, int i, int j) {
+        if (nums.length <= i || nums.length <= j) {
+            return;
+        }
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
 }
