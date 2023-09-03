@@ -142,4 +142,36 @@ public class QuickSort {
         n[j] = temp;
     }
 
+
+    @Test
+    public void testQuickSort() {
+        int[] arr = {12, 4, 5, 6, 7, 3, 1, 15};
+        quickSort(arr, 0, arr.length - 1);
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+    }
+
+    public static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partition2(arr, low, high); // 获取分区点的索引
+            quickSort(arr, low, pivotIndex - 1); // 递归排序左子数组
+            quickSort(arr, pivotIndex + 1, high); // 递归排序右子数组
+        }
+    }
+
+    public static int partition2(int[] arr, int low, int high) {
+        int pivot = arr[high]; // 选择最后一个元素作为基准
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                ArrayUtils.swap(arr, i, j); // 交换元素
+            }
+        }
+
+        ArrayUtils.swap(arr, i + 1, high); // 将基准元素放到正确的位置
+        return i + 1;
+    }
 }
